@@ -1,3 +1,5 @@
+
+# Microsoft Graph verbinden
 Connect-MgGraph -Scopes "Sites.Read.All"
 
 # Eingaben abfragen
@@ -5,16 +7,20 @@ $sitePath = Read-Host "Gib den Pfad zur SharePoint-Seite ein (z. B. /sites/ITT
 $libName = Read-Host "Gib den Namen der Dokumentbibliothek ein (z. B. Dokumente)"
 $webUrl = "https://xxxxxx.sharepoint.com$sitePath"
 
+# Tenant-ID holen
+$org = Get-MgOrganization
+$tenantId = $org.Id
+
 # Site abrufen
-$site = Get-MgSite -SiteId "xxxxx.sharepoint.com:${sitePath}:"
+$site = Get-MgSite -SiteId "xxxxxx.sharepoint.com:${sitePath}:"
 
 if (-not $site) {
     Write-Error "Seite nicht gefunden. Bitte überprüfe den Pfad."
     exit
 }
 
-# IDs extrahieren
-$tenantId, $siteId = $site.Id -split ","
+# SiteId und WebId extrahieren
+$siteId = $site.SiteId
 $webId = $site.Root.WebId
 
 # Listen abrufen und passende finden
