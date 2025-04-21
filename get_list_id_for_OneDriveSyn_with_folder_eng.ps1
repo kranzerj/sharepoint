@@ -44,7 +44,7 @@ $driveId    = $drive.id
 # 7. Ordner‑DriveItem holen und sharepointIds auslesen
 #    -> wir holen nur die id‑Fazette, daher $select=sharepointIds
 $encodedPath      = [uri]::EscapeDataString($folderPath)
-$folderRequestUri = "https://graph.microsoft.com/v1.0/drives/$driveId/root:/$encodedPath:/?`$select=sharepointIds"
+$folderRequestUri = "https://graph.microsoft.com/v1.0/drives/$($driveId)/root:/$($encodedPath):/?`$select=sharepointIds"
 $folder           = Invoke-MgGraphRequest -Method GET -Uri $folderRequestUri
 $folderSpIds      = $folder.sharepointIds
 
