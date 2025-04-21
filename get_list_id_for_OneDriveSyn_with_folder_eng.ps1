@@ -1,7 +1,6 @@
 # Setze die Konsolen-Ausgabekodierung auf UTF-8 (für korrekte Anzeige von Unicode-Zeichen)
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-# 1. Eingabe: Site‑URL, Bibliotheksname, Ordnerpfad
 $siteUrl     = Read-Host "enter site URL (e.g. https://contoso.sharepoint.com/sites/ITTeam)"
 $libraryName = Read-Host "enter name of library (e.g. Dokuments)"
 $folderPath  = Read-Host "enter Path / Folder at libary (z.B.: 'FolderA')"
@@ -25,7 +24,7 @@ $lists   = Get-MgSiteList -SiteId $site.Id -Property "displayName,sharepointIds"
 $library = $lists | Where-Object DisplayName -EQ $libraryName
 
 if (-not $library) {
-    Write-Error "library '$libraryName' not found"
+    Write-Error "Bibliothek '$libraryName' nicht gefunden."
     exit
 }
 
@@ -63,5 +62,6 @@ $finalUrl = "tenantId=$tenantId" + `
     "&version=1"
 
 # 9. Ergebnis formatiert ausgeben
-Write-Host "`n✅ the sync URL is:" -ForegroundColor Green
+Write-Host "`n✅ Die OneDrive‑Sync‑URL lautet:" -ForegroundColor Green
 Write-Host $finalUrl                                 -ForegroundColor Cyan
+
